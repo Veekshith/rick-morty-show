@@ -15,6 +15,7 @@ function App() {
     info: {}
   });
   const [pageResults, setPageResults] = useState([]);
+  const [resetFields, setResetFields] = useState(false);
   const filters = ["origin", "gender", "species"];
   const [showFilters, setShowFilters] = useState(false);
   const [filterOptions, setFilterOptions] = useState([]);
@@ -34,6 +35,11 @@ function App() {
   useEffect(() => {
     sortList();
   }, [sortType]);
+  useEffect(() => {
+    setSortType("noSort");
+
+    formFilterOptions(charactersListState);
+  }, [resetFields]);
 
   useEffect(() => {
     const filteredList = [],
@@ -73,6 +79,11 @@ function App() {
     );
     setCharactersListState(data);
     setPageResults(getSortedList(data.results));
+    formFilterOptions(data);
+  };
+
+  const formFilterOptions = data => {
+    setFilterOptions([]);
     for (const key of filters) {
       const uniqueValues = new Set(),
         uniqueValuesArr = [];
@@ -113,8 +124,12 @@ function App() {
       foundCharacters = charactersListState.results.filter(({ name }) => {
         return name.toLowerCase().indexOf(searchKeyword.toLowerCase()) > -1;
       });
+      setResetFields(false);
       setPageResults(foundCharacters);
-    } else setPageResults(charactersListState.results);
+    } else {
+      setResetFields(true);
+      setPageResults(charactersListState.results);
+    }
   };
 
   const onSearchKeywordChange = e => {
