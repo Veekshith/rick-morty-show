@@ -14,7 +14,7 @@ const CharactersListWrapper = styled.div`
         font-size: 1.3rem;
     }
 
-    @media screen and   (max-width: 767px) {
+    @media screen and   (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr)
     }
     @media screen and (max-width: 560px) {
