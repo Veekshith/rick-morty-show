@@ -24,7 +24,6 @@ const Filters = ({ filterOptions, onChangeHandler, show, handleClose }) => {
             ))}
           </Form.Group>
         ))}
-        ;
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
